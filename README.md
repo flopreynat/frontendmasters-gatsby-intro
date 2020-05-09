@@ -1,9 +1,14 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
+Stumbled upon Frontend Master's Introduction to Gatsby tutorial.
+
+Just playing with it.
+
+My notes:
+1. gatsby new frontendmasters https://github.com/FrontendMasters/gatsby-intro
+2. cd frontendmasters
+3. npm run develop
+4. npm i @emotion/core @emotion/styled gatsby-plugin-emotion
+
+<hr />
 <h1 align="center">
   Frontend Masters: Introduction to Gatsby
 </h1>
