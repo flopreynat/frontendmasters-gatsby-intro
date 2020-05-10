@@ -1,12 +1,10 @@
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     query {
-      allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
+      allMdx {
         nodes {
-          childMdx {
-            frontmatter {
-              slug
-            }
+          frontmatter {
+            slug
           }
         }
       }
@@ -17,44 +15,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panic('failed to create posts', result.errors);
   }
 
-  const posts = result.data.allFile.nodes;
+  const posts = result.data.allMdx.nodes;
 
   posts.forEach(post => {
     actions.createPage({
-      path: post.childMdx.frontmatter.slug,
+      path: post.frontmatter.slug,
       component: require.resolve('./src/templates/post.js'),
       context: {
-        slug: post.childMdx.frontmatter.slug,
-      },
-    });
-  });
-
-  const result2 = await graphql(`
-    query {
-      allFile(filter: { sourceInstanceName: { eq: "projects" } }) {
-        nodes {
-          childMdx {
-            frontmatter {
-              slug
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  if (result2.errors) {
-    reporter.panic('failed to create projects', result2.errors);
-  }
-
-  const projects = result2.data.allFile.nodes;
-
-  projects.forEach(project => {
-    actions.createPage({
-      path: project.childMdx.frontmatter.slug,
-      component: require.resolve('./src/templates/project.js'),
-      context: {
-        slug: project.childMdx.frontmatter.slug,
+        slug: post.frontmatter.slug,
       },
     });
   });
