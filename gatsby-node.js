@@ -1,5 +1,5 @@
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const result = await graphql(`
+  const resultPost = await graphql(`
     query {
       allFile(filter: { sourceInstanceName: { eq: "posts" } }) {
         nodes {
@@ -13,11 +13,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   `);
 
-  if (result.errors) {
-    reporter.panic('failed to create posts', result.errors);
+  if (resultPost.errors) {
+    reporter.panic('failed to create posts', resultPost.errors);
   }
 
-  const posts = result.data.allFile.nodes;
+  const posts = resultPost.data.allFile.nodes;
 
   posts.forEach(post => {
     actions.createPage({
@@ -29,7 +29,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  const result2 = await graphql(`
+  const resultProject = await graphql(`
     query {
       allFile(filter: { sourceInstanceName: { eq: "projects" } }) {
         nodes {
@@ -43,11 +43,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   `);
 
-  if (result2.errors) {
-    reporter.panic('failed to create projects', result2.errors);
+  if (resultProject.errors) {
+    reporter.panic('failed to create projects', resultProject.errors);
   }
 
-  const projects = result2.data.allFile.nodes;
+  const projects = resultProject.data.allFile.nodes;
 
   projects.forEach(project => {
     actions.createPage({
